@@ -43,10 +43,23 @@ INSTALLED_APPS = [
     'allauth.account',
     "crispy_forms",
     "crispy_bootstrap5",
+    'ckeditor',
 
     'accounts',
     'pages',
 ]
+
+CKEDITOR_CONFIGS = {
+    'default':{
+        'toolbar': 'full',
+        'height': 300,
+        'width': '100%',
+        'extraPlugins': ','.join([
+            'codesnippet',
+            'smiley',
+        ])
+    }
+}
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
