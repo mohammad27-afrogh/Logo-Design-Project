@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+
+<form action="" method="POST" class="form-account text-right">
+    {% csrf_token %}
+    <div class="form-auth-row">
+        <h5 for="remember" class="remember-me mr-0">
+            <b>Are you sure you want to log out?</b>
+        </h5>
+    </div>
+    <button class="btn btn-danger btn-logout" type="submit">
+        Yes, I'm sure. Get out!</button>
+</form>

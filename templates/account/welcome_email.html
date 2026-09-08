@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome to Logo Design</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #2d3436;
+            background-color: #f9f9f9;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            width: 100%;
+            max-width: 600px;
+            margin: 40px auto;
+            background-color: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+        .header {
+            background-color: #1a1a1a; /* رنگ تیره و لوکس */
+            color: #ffffff;
+            padding: 40px 20px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 28px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .content {
+            padding: 40px 30px;
+            text-align: center; /* برای برندینگ بهتر، متن اصلی را وسط‌چین کردیم */
+        }
+        .content h2 {
+            color: #1a1a1a;
+            font-size: 24px;
+            margin-top: 0;
+        }
+        .content p {
+            color: #636e72;
+            font-size: 16px;
+            margin-bottom: 25px;
+        }
+        .cta-button {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: #6c5ce7; /* رنگ بنفش مدرن (جایگزین سبز) */
+            color: #ffffff !important;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+        .footer {
+            background-color: #f1f2f6;
+            text-align: center;
+            padding: 20px;
+            font-size: 13px;
+            color: #b2bec3;
+        }
+        .footer a {
+            color: #6c5ce7;
+            text-decoration: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>LOGO DESIGN</h1>
+        </div>
+        <div class="content">
+            <h2>The journey to your brand identity starts here!</h2>
+            <p>Hello {{ username }},</p>
+            <p>Welcome to <strong>Logo Design</strong>! We are thrilled to have you with us. 
+                Whether you are looking to build a new brand or refresh an existing one, 
+                our mission is to bring your vision to life through exceptional design.
+            </p>
+            
+            <a href="{{ site_url }}" class="cta-button">Start Designing Now</a>
+            
+            <p style="margin-top: 30px; font-size: 14px; color: #b2bec3;">
+                Need help? Just reply to this email. Our design experts are always here for you.
+            </p>
+        </div>
+        <div class="footer">
+            <p>&copy; {{ current_year }} {{ site_name }}. All rights reserved.</p>
+            <p>Designed with passion for creators.</p>
+        </div>
+    </div>
+</body>
+</html>
