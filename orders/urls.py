@@ -6,4 +6,5 @@ app_name='order'
 
 urlpatterns = [
     path('my_orders', views.my_orders_view, name='my_orders'),
+    re_path(r'(?P<order_name>[^/]+)/$', views.my_order_details_view, name='my_order_details_by_name'),
 ]
