@@ -66,3 +66,11 @@ class LogoOrder(models.Model):
 
     def str(self):
         return f"Order {self.id} - {self.name}"
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(LogoOrder, on_delete=models.CASCADE, related_name='items')
+    class Meta:
+        verbose_name_plural = 'Order Item'
+
+    def __str__(self):
+        return f'OrderItem {self.id}'
