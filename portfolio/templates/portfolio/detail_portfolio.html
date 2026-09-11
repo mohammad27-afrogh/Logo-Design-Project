@@ -1,1 +1,8 @@
-hello
+title : {{ portfolio.title }} <br>
+{% for img_obj in portfolio.images.all %}
+    <img src="{{ img_obj.image.url }}" width="250" />
+{% endfor %} <br>
+created_at : {{ portfolio.created_at }} <br>
+style : {{ portfolio.style }} <br>
+personality : {{ portfolio.personality }} <br>
+description : {{ portfolio.description }} <br>
