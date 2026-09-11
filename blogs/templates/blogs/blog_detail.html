@@ -1,0 +1,27 @@
+{% load crispy_forms_tags %}
+
+date_time_create : {{ blog.date_time_create }} <br>
+<img src="{{ blog.cover_blog.url }}" alt="{{ blog.name }}"> <br>
+name : {{ blog.name }} <br>
+view_count : {{ blog.view_count }} <br>
+description : {{ blog.description }} <br>
+
+
+{% for comment in comments %}
+    by : {{ comment.user }} <br>
+    {{ comment.body_comment }} <br>
+{% endfor %}
+
+
+{% if user.is_authenticated %}
+    <form action="" method="POST" class="comment-form-container">
+        {% csrf_token %}
+        {{ comment_form|crispy }}
+        <button type="submit">record</button>
+    </form>
+{% else %}
+    <li>
+        <p>please create a questionnaire !</p>
+        <a href="{% url 'account_login' %}" type="submit">login</a>
+    </li>
+{% endif %}

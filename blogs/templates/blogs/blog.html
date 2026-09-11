@@ -1,0 +1,6 @@
+{% for blog in blogs %}
+    <a href="{% url 'blog:blog_detail_by_slug' blog.slug %}">
+        <img src="{{ blog.cover_blog.url }}" alt="{{ blog.name }}"> <br>
+        {{ blog.name }}
+    </a>
+{% endfor %}

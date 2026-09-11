@@ -17,8 +17,6 @@ class BlogAdmin(admin.ModelAdmin):
         'slug',
         'date_time_create',
     ]
-    autocomplete_fields = ['category',]
-    search_fields = ['name',]
 
     prepopulated_fields = {
         'slug': ['name',]
