@@ -24,9 +24,4 @@ class LogoOrderForms(forms.ModelForm):
             'budget',
             'deadline',
             'references',
-            'status',
-            'admin_notes',
-            'final_file',
-            'created_at',
-            'updated_at',
         ]

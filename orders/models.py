@@ -39,21 +39,21 @@ class LogoOrder(models.Model):
 
     # --- User & Basic Info ---
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='logo_orders')
-    name = models.CharField(max_length=120, null=True, blank=True, help_text='The brand name to be included in the design')
+    name = models.CharField(max_length=120, help_text='The brand name to be included in the design')
 
     # --- Design Details ---
-    style = models.CharField(max_length=20, choices=STYLE_CHOICES, null=True, blank=True, help_text='The visual style of the logo.')
-    personality = models.CharField(max_length=20, choices=PERSONALITY_CHOICES, null=True, blank=True, help_text='The brand personality (e.g., formal, playful, or luxury).')
-    color_preferences = models.CharField(max_length=200, null=True, blank=True, help_text='Preferred colors (e.g., black and gold).')
-    usage = models.CharField(max_length=200, blank=True, help_text='Target usage (e.g., website, business card, etc.).')
+    style = models.CharField(max_length=20, choices=STYLE_CHOICES, help_text='The visual style of the logo.')
+    personality = models.CharField(max_length=20, choices=PERSONALITY_CHOICES, help_text='The brand personality (e.g., formal, playful, or luxury).')
+    color_preferences = models.CharField(max_length=200, help_text='Preferred colors (e.g., black and gold).')
+    usage = models.CharField(max_length=200, help_text='Target usage (e.g., website, business card, etc.).')
 
     # --- Project Scope ---
-    brief_text = models.TextField(null=True, blank=True, help_text='Detailed description of the brand and requirements.') 
+    brief_text = models.TextField(help_text='Detailed description of the brand and requirements.') 
     budget = models.DecimalField(max_digits=12, decimal_places=0, help_text='Budget in Toman (e.g., 5000000).')
-    deadline = models.DateField(null=True, blank=True, help_text='Expected delivery date.')
+    deadline = models.DateField(help_text='Expected delivery date.')
 
     # --- Assets ---
-    references = models.ManyToManyField(ReferenceImage, blank=True, help_text='Upload reference images or provide links.')
+    references = models.ManyToManyField(ReferenceImage, help_text='Upload reference images or provide links.')
 
     # --- Admin & Management ---
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='pending')

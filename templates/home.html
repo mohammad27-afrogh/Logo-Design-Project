@@ -1,3 +1,5 @@
+{% load crispy_forms_tags %}
+
 {% if user.is_authenticated %}
     <a href="{% url 'account_logout' %}">log out</a> |
     <a href="{% url 'order:my_orders' %}">my order</a> |
@@ -19,9 +21,16 @@
         {% if item.images.all %}
             <img src="{{ item.images.first.image.url }}" alt="{{ item.title }}" style="width:200px;">
         {% else %}
-        no image
-    </a>
+            no image
         {% endif %}
+    </a>
 {% empty %}
     no project
-{% endfor %}
+{% endfor %} <br>
+
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ order_form|crispy }}
+    <button type="submit">Place an Order</button>
+</form>
