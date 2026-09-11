@@ -4,6 +4,7 @@ from ckeditor.fields import RichTextField
 
 class AboutUs(models.Model):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True, null=False, allow_unicode=True)
     discription = RichTextField()
 
     class Meta:
@@ -16,6 +17,7 @@ class AboutUs(models.Model):
 
 class Privacy(models.Model):
     title = models.CharField(max_length=100)
+    slug = models.SlugField(unique=True, blank=True, null=False, allow_unicode=True)
     discription = RichTextField()
 
     class Meta:

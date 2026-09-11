@@ -6,10 +6,18 @@ from .models import AboutUs, Privacy
 class AboutUsAdmin(admin.ModelAdmin):
     list_display = [
         'title',
+        'slug',
     ]
+    prepopulated_fields = {
+        'slug': ['title',]
+    }
 
 @admin.register(Privacy)
 class PrivacyAdmin(admin.ModelAdmin):
     list_display = [
         'title',
+        'slug',
     ]
+    prepopulated_fields = {
+        'slug': ['title',]
+    }
