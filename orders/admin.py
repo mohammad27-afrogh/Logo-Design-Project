@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import ReferenceImage, LogoOrder, OrderItem
+from .models import ReferenceImage, LogoOrder
 
 @admin.register(ReferenceImage)
 class ReferenceImageAdmin(admin.ModelAdmin):
@@ -19,11 +19,4 @@ class LogoOrderAdmin(admin.ModelAdmin):
         'status',
         'created_at',
         'updated_at',
-    ]
-
-
-@admin.register(OrderItem)
-class OrderItemAdmin(admin.ModelAdmin):
-    list_display = [
-        'order',
     ]

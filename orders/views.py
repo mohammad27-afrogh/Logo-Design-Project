@@ -5,10 +5,8 @@ from .models import LogoOrder
 
 @login_required
 def my_orders_view(request):
-    # 1. دسترسی به شیء کاربر احراز هویت شده
-    current_user = request.user
     
-    my_orders = LogoOrder.objects.filter(user=current_user).prefetch_related('items').all()
+    my_orders = request.user.logo_orders.all().order_by('-created_at')
 
     context = {
         'my_orders': my_orders,
