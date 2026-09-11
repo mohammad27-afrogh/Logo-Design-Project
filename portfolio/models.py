@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 class PortfolioItem(models.Model):
     STYLE_CHOICES = [
@@ -21,6 +22,7 @@ class PortfolioItem(models.Model):
         
 
     title = models.CharField(max_length=200, verbose_name="Project Name")
+    slug = models.SlugField(unique=True, blank=True, null=False, allow_unicode=True)
     
     # شباهت با سفارش‌ها (برای فیلترینگ)
     style = models.CharField(max_length=50, choices=STYLE_CHOICES, verbose_name="style")
@@ -37,6 +39,9 @@ class PortfolioItem(models.Model):
     class Meta:
         verbose_name = "portfolio"
         verbose_name_plural = "portfolio"
+
+    def get_absolute_url(self):
+        return reverse('portfolio_detail_view', args=[self.slug])
 
 class PortfolioImage(models.Model):
     project = models.ForeignKey(PortfolioItem, on_delete=models.CASCADE, related_name='images', verbose_name='PortfolioItem')

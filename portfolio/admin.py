@@ -11,5 +11,9 @@ class PortfolioImageInline(admin.TabularInline):
 class PortfolioItemInline(admin.ModelAdmin):
     list_display = [
         'title',
+        'is_featured',
     ]
+    prepopulated_fields = {
+            'slug': ['title',]
+        }
     inlines = [PortfolioImageInline]

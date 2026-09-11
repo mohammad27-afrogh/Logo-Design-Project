@@ -7,6 +7,7 @@ class PortfolioItemForms(forms.ModelForm):
         model = PortfolioItem
         fields = [
             'title',
+            'slug',
             'style',
             'personality',
             'description',

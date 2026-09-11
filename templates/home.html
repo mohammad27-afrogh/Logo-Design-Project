@@ -8,3 +8,18 @@
     <a href="{% url 'account_login' %}">signup / login</a>
     <a href="{% url 'order:my_orders' %}">my order</a> |
 {% endif %}
+
+
+<br>
+
+{% for item in portfolio %}
+    <a href="{% url 'portfolio:portfolio_detail_view' item.slug %}">
+        {% if item.images.all %}
+            <img src="{{ item.images.first.image.url }}" alt="{{ item.title }}" style="width:200px;">
+        {% else %}
+        no image
+    </a>
+        {% endif %}
+{% empty %}
+    no project
+{% endfor %}
