@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'accounts',
     'pages',
     'orders',
+    'portfolio',
 ]
 
 CKEDITOR_CONFIGS = {
