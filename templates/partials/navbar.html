@@ -1,0 +1,53 @@
+{% load static %}
+
+<!-- Left Block -->
+<nav class="header-main" data-simplebar>
+
+    <!-- Logo -->
+    <div class="logo">
+        <img src="{% static 'img/logo2.png' %}" alt="">
+    </div>
+
+    <ul>
+        {% if user.is_authenticated %}
+            <li data-tooltip="Home" data-position="top">
+                <a href="{% url 'page:home' %}" class="icon-h fas fa-house-damage"></a>
+            </li>
+            <li data-tooltip="Log Out" data-position="top">
+                <a href="{% url 'account_logout' %}" class="icon-logout fas fa-sign-out-alt"></a>
+            </li>
+            <li data-tooltip="Chenge Password" data-position="top">
+                <a href="{% url 'account_change_password' %}" class="icon-pass fas fa-key"></a>
+            </li>
+            <li data-tooltip="My Orders" data-position="top">
+                <a href="{% url 'order:my_orders' %}" class="icon-orders fas fa-shopping-bag"></a>
+            </li>
+            <li data-tooltip="About Us" data-position="top">
+                <a href="{% url 'page:aboutus' %}" class="icon-a fas fa-user-tie"></a>
+            </li>
+            <li data-tooltip="Portfolio" data-position="top">
+                <a href="{% url 'portfolio:portfolio_page_view' %}" class="icon-p fas fa-briefcase"></a>
+            </li>
+            <li data-tooltip="Blog" data-position="top">
+                <a href="{% url 'blog:blogs' %}" class="icon-b fas fa-receipt"></a>
+            </li>
+        {% else %}
+            <li data-tooltip="Home" data-position="top">
+                <a href="{% url 'page:home' %}" class="icon-h fas fa-house-damage"></a>
+            </li>
+            <li data-tooltip="Sign Up / Log in" data-position="top">
+                <a href="{% url 'account_login' %}" class="icon-login fas fa-sign-in-alt"></a>
+            </li>
+            <li data-tooltip="About Us" data-position="top">
+                <a href="{% url 'page:aboutus' %}" class="icon-a fas fa-user-tie"></a>
+            </li>
+            <li data-tooltip="Portfolio" data-position="top">
+                <a href="{% url 'portfolio:portfolio_page_view' %}" class="icon-p fas fa-briefcase"></a>
+            </li>
+            <li data-tooltip="Blog" data-position="top">
+                <a href="{% url 'blog:blogs' %}" class="icon-b fas fa-receipt"></a>
+            </li>
+        {% endif %}
+    </ul>
+
+</nav>

@@ -2,6 +2,27 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib.auth.decorators import login_required
 
 from .models import LogoOrder
+from .forms import AddressFormOrder
+
+@login_required
+def order_create_view(request):
+
+    if request.method == 'POST':
+        form = AddressFormOrder(request.POST)
+        if form.is_valid():
+            order_obj = form.save(commit=False)
+            order_obj.user = request.user
+            order_obj.save()
+
+    else:
+        form = AddressFormOrder()
+
+    context={
+        'form': form,
+    }
+    
+    return render (request, 'orders/place_order.html', context)
+
 
 @login_required
 def my_orders_view(request):
