@@ -1,6 +1,7 @@
 from django import forms
-
-from .models import ReferenceImage, LogoOrder
+from .models import LogoOrder, ReferenceImage
+from crispy_forms.helper import FormHelper
+from crispy_forms.layout import Layout, Submit, Row, Column, Field
 
 class AddressFormOrder(forms.Form):
     
@@ -22,41 +23,70 @@ class AddressFormOrder(forms.Form):
         ('elegant', 'Elegant and dignified'),
     ]
 
-    # --- User & Basic Info ---
-    name = forms.CharField(required=True, max_length=120, help_text='The brand name to be included in the design')
+    CURRENCY_CHOICES = [
+        ('IRT', 'Toman (تومان)'),
+        ('USD', 'US Dollar ($)'),
+    ]
 
-    # --- Design Details ---
+    name = forms.CharField(required=True, max_length=120, help_text='The brand name to be included in the design')
     style = forms.ChoiceField(required=True, choices=[('', "The visual style of the logo...")] + STYLE_CHOICES)
-    personality = forms.ChoiceField(required=True, choices=[('', "The brand personality (e.g., formal, playful, or luxury)...")] + PERSONALITY_CHOICES)
+    personality = forms.ChoiceField(required=True, choices=[('', "The brand personality...")] + PERSONALITY_CHOICES)
     color_preferences = forms.CharField(required=True, max_length=200, help_text='Preferred colors (e.g., black and gold).')
     usage = forms.CharField(required=True, max_length=200, help_text='Target usage (e.g., website, business card, etc.).')
+    
+    brief_text = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows': 4}), help_text='Detailed description.') 
+    
+    # واحد پول و بودجه
+    currency = forms.ChoiceField(required=True, choices=CURRENCY_CHOICES, initial='USD')
+    budget = forms.DecimalField(required=True, max_digits=12, decimal_places=0, help_text='Your estimated budget.')
 
-    # --- Project Scope ---
-    brief_text = forms.CharField(required=True, widget=forms.Textarea(attrs={'rows':4, 'cols':40}), help_text='Detailed description of the brand and requirements.') 
-    budget = forms.DecimalField(required=True, max_digits=12, decimal_places=0, help_text='Budget in Toman (e.g., 5000000).')
-    deadline = forms.DateField(required=True, help_text='Expected delivery date.')
+    deadline = forms.DateField(required=True, widget=forms.DateInput(attrs={'type': 'date'}), help_text='Expected delivery date.')
 
-    # --- Assets ---
-    references = forms.ModelMultipleChoiceField(queryset=ReferenceImage.objects.all(), required=True, widget=forms.CheckboxSelectMultiple, help_text='Upload reference images or provide links.')
+    reference_image_file = forms.ImageField(required=False, help_text='Upload a reference image or sketch.')
+    reference_url_link = forms.URLField(required=False, help_text='Provide a URL link (e.g., Pinterest).')
 
-    # اضافه کردن متد save اگر نیاز دارید داده ها را در مدل Order ذخیره کنید
-    def save(self, commit=True):
-        order_data = self.cleaned_data
-        # استخراج مقادیر به جز references
-        references = order_data.pop(
-            'references'
-            # جداکردن references از بقیه
-        , None) 
-
-        # ایجاد یا ذخیره شیء LogoOrder با بقیه اطلاعات
-        order = LogoOrder.objects.create(
-            **order_data
-            # تمام فیلدها را یکجا روی مدل ست میکند
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_method = 'post'
+        self.helper.form_class = 'order-form needs-validation'
+        self.helper.attrs = {'enctype': 'multipart/form-data'}
+        
+        # چیدمان حرفه‌ای فیلدها با Crispy Layout
+        self.helper.layout = Layout(
+            'name',
+            'style',
+            'personality',
+            'color_preferences',
+            'usage',
+            'brief_text',
+            # قرار دادن بودجه و واحد پول کنار هم در یک سطر
+            Row(
+                Column('budget', css_class='form-group col-md-8 mb-3'),
+                Column('currency', css_class='form-group col-md-4 mb-3'),
+                css_class='form-row'
+            ),
+            'deadline',
+            'reference_image_file',
+            'reference_url_link',
         )
 
-        # مدیریت رابطه MenyToMeny بعد از ذخیره شدن اولیه شیء
-        if references:
-            order.references.set(references)
+    def save(self, commit=True):
+        cleaned_data = self.cleaned_data
+        ref_image = cleaned_data.pop('reference_image_file', None)
+        ref_url = cleaned_data.pop('reference_url_link', None)
+
+        order = LogoOrder.objects.create(**cleaned_data)
+
+        if ref_image or ref_url:
+            new_ref = ReferenceImage.objects.create(
+                image=ref_image if ref_image else None,
+                url=ref_url if ref_url else ''
+            )
+            order.references.add(new_ref)
+
+        if commit:
+            order.save()
 
         return order
 

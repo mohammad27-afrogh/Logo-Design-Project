@@ -1,0 +1,109 @@
+{% extends '_base.html' %}
+{% load static %}
+{% load crispy_forms_tags %}
+
+{% block page_title %}
+    Place Order
+{% endblock page_title %}
+
+{% block content %}
+
+    <div class="container py-5">
+        <div class="row w-100 justify-content-center">
+            <div class="col-lg-8 col-md-10">
+                
+                <!-- کارد اصلی با استایل مدرن و تاریک -->
+                <div class="card order-card shadow-lg border-0 rounded-4 p-4 p-md-5">
+                    
+                    <!-- هدر بخش سفارش (کاملاً انگلیسی) -->
+                    <div class="text-center mb-4">
+                        <h2 class="fw-bold text-white mb-2">Build My Brand Identity</h2>
+                        <p class="text-muted">Please fill out the details below to start designing your professional brand logo.</p>
+                        <div class="mx-auto mt-2" style="width: 60px; height: 3px; background: #00d26a;"></div>
+                    </div>
+
+                    <!-- فرم سفارش -->
+                    <form action="" method="post" enctype="multipart/form-data" class="order-form needs-validation" novalidate>
+                        {% csrf_token %}
+                        
+                        <div class="crispy-custom-form text-start">
+                            {{ form|crispy }}
+                        </div>
+
+                        <!-- دکمه ارسال با استایل سفارشی و ساختار مشابه btn-st شما -->
+                        <div class="blog-post text-center" style="margin-top: 50px !important;">
+                            <div class="content">
+                                <div class="detalis">
+                                    <button type="submit" class="btn-st border-0 w-100 py-3 cursor-pointer">
+                                        Build My Brand Identity
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- استایل‌های اختصاصی فرم و دکمه -->
+    <style>
+        body {
+            background-color: #121212;
+            color: #e0e0e0;
+            overflow-y: auto !important;
+        }
+
+        .order-card {
+            background: rgba(30, 30, 30, 0.85) !important;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5) !important;
+        }
+
+        .crispy-custom-form label {
+            color: #b0b0b0 !important;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .crispy-custom-form input,
+        .crispy-custom-form select,
+        .crispy-custom-form textarea {
+            background-color: #252525 !important;
+            border: 1px solid #3a3a3a !important;
+            color: #fff !important;
+            border-radius: 8px !important;
+            padding: 0.75rem 1rem !important;
+        }
+
+        .crispy-custom-form input:focus,
+        .crispy-custom-form select:focus,
+        .crispy-custom-form textarea:focus {
+            border-color: #00d26a !important;
+            box-shadow: 0 0 0 0.25rem rgba(0, 210, 106, 0.25) !important;
+            background-color: #2a2a2a !important;
+            color: #fff !important;
+        }
+
+        /* اسم اصلی فیلد: پررنگ و بولد */
+        .order-form label {
+            font-weight: 450 !important;
+            color: #ffffff !important;
+            margin-bottom: 0.5rem;
+        }
+
+        /* متن‌های راهنما (help_text): کم‌رنگ و کوچک‌تر */
+        .order-form .form-text,
+        .order-form small.helptext {
+            color: rgba(255, 255, 255, 0.45) !important;  /* سفید محو و کم‌رنگ */
+            font-weight: 400;                              /* بدون بولد */
+            font-size: 0.8rem;                             /* کمی کوچک‌تر */
+            margin-bottom: 4px;
+            display: block;
+        }
+
+    </style>
+
+{% endblock content %}

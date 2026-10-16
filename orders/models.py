@@ -37,6 +37,11 @@ class LogoOrder(models.Model):
         ('cancelled', 'Cancelled'),
     ]
 
+    CURRENCY_CHOICES = [
+        ('IRT', 'Toman'),
+        ('USD', 'USD ($)'),
+    ]
+
     # --- User & Basic Info ---
     user = models.ForeignKey(settings.AUTH_USER_MODEL, null=True, blank=True, on_delete=models.SET_NULL, related_name='logo_orders')
     name = models.CharField(max_length=120, help_text='The brand name to be included in the design')
@@ -50,6 +55,7 @@ class LogoOrder(models.Model):
     # --- Project Scope ---
     brief_text = models.TextField(help_text='Detailed description of the brand and requirements.') 
     budget = models.DecimalField(max_digits=12, decimal_places=0, help_text='Budget in Toman (e.g., 5000000).')
+    currency = models.CharField(max_length=3, choices=CURRENCY_CHOICES, default='USD')
     deadline = models.DateField(help_text='Expected delivery date.')
 
     # --- Assets ---
