@@ -1,0 +1,89 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block page_title %}
+    Search Results for : {{ query }}
+{% endblock page_title %}
+
+{% block content %}
+
+	<!-- Preloader -->
+	<div id="preloader">
+		<div class="loading-area">
+			<div class="circle"></div>
+		</div>
+		<div class="left-side"></div>
+		<div class="right-side"></div>
+	</div>
+
+	<!-- Left Block -->
+    {% include 'partials/navbar.html' %}
+
+	<!--Blog Page-->
+	<div class="blog-list" data-simplebar>
+		<div class="blog-head">
+			<h2>Blog</h2>
+			<ul class="blog-breadcrumb">
+				<li><a href="{% url 'blog:blogs' %}">Blog</a></li>
+				<li>Search Results for : {{ query }}</li>
+			</ul>
+		</div>
+        {% if results %}
+            <div class="row blog-list-container">
+                <div class="col-md-10 offset-md-1">
+                    <div class="row">
+                        <div class="col-md-8">
+                            {% for blog in results %}
+                                <!--Blog Post-->
+                                <div class="blog-post">
+                                    <div class="content">
+                                        <div class="thumbnail">
+                                            <a href="{% url 'blog:blog_detail_by_slug' blog.slug %}">
+                                                <img src="{{ blog.cover_blog.url }}" alt="{{ blog.name }}">
+                                            </a>
+                                        </div>
+                                        <div class="detalis">
+                                            <ul class="meta">
+                                                <li><i class="fa fa-calendar"></i>{{ blog.date_time_create|date:'Y/m/d - H:i' }}</li>
+                                                <li><i class="icon fa fa-user"></i>{{ blog.user }}</li>
+                                            </ul>
+                                            <h4><a href="{% url 'blog:blog_detail_by_slug' blog.slug %}">{{ blog.name }}</a></h4>
+                                            <div class="text">{{ blog.description|truncatewords:30 }}</div>
+                                            <a href="{% url 'blog:blog_detail_by_slug' blog.slug %}" class="btn-st">Read more</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {% endfor %}
+                        </div>
+                        <div class="col-md-4">
+                            <div class="side-left">
+
+                                <!-- Search -->
+                                <form class="search" action="{% url 'blog:blog_search' %}" method="GET">
+                                    <div class="input-group">
+                                        <div class="input-group-text">
+                                            <i class="fas fa-search"></i>
+                                        </div>
+                                        <input type="text" name="q" class="form-control" placeholder="Search blogs..." value="{{ request.GET.q }}">
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% else %}
+            <!-- استفاده از d-flex و justify-content-center برای وسط چین کردن -->
+            <div class="d-flex justify-content-center align-items-center mt-5">
+                <!-- محدودکردن عرض کادر با استفاده از w-50 یا style custom -->
+                <div class="alert alert-warning w-75 text-center shadow-sm" role="alert" style="max-width: 400px;">
+                    <i class="fas fa-exclamation-triangle mb-2 d-block" style="font-size: 1.5rem;"></i>
+                    No articles found matching {{ query }}
+                </div>
+            
+            </div>
+        {% endif %}
+	</div>
+
+{% endblock content %}

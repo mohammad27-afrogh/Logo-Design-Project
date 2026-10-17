@@ -4,9 +4,10 @@ from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from .models import PortfolioItem
 
 def portfolio_page_view(request):
-        
+    portfolio = PortfolioItem.objects.all()
+    
     NUMBER_PAGINATOR = 10
-    paginator = Paginator(PortfolioItem, NUMBER_PAGINATOR)
+    paginator = Paginator(portfolio, NUMBER_PAGINATOR)
     page_number = request.GET.get('page', 1)
 
     try:
