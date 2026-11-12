@@ -30,9 +30,18 @@ class CommentBlog(models.Model):
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)
     time_release_comment = models.DateTimeField(default=timezone.now)
     body_comment = RichTextField()
+    parent = models.ForeignKey('self', 
+                               on_delete=models.CASCADE, 
+                               null=True, 
+                               blank=True, 
+                               related_name='replies', 
+                               verbose_name='Reply to',
+                            )
+
+    is_approved = models.BooleanField(default=False, verbose_name='Approved / View on website')
 
     class Meta:
         verbose_name_plural = 'Comment Blog'
 
     def __str__(self):
-        return f'{self.blog}'
+        return f'{self.body_comment}'

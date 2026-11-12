@@ -42,6 +42,21 @@
 
 <body>
 
+<!-- بخش سراسری نمایش پیام‌ها (Messages) -->
+{% if messages %}
+	<div class="container mt-4">
+		<div class="messages">
+			{% for message in messages %}
+			<div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" style="background-color: #ffffff; color: #333333; padding: 15px 20px; border-radius: 8px; border-right: 5px solid {% if message.tags == 'error' %}#dc3545{% else %}#28a745{% endif %}; box-shadow: 0 4px 6px rgba(0,0,0,0.3); margin-bottom: 15px; font-weight: 500; display: flex; align-items: center; justify-content: space-between;">
+				<span>{{ message }}</span>
+				<!-- دکمه بستن اختیاری (اگر خواستید کاربر بتواند پیام را ببندد) -->
+				<button type="button" class="btn-close" onclick="this.parentElement.style.display='none';" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #666;">&times;</button>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+{% endif %}
+
 {% block content %}
 
 {% endblock content %}
